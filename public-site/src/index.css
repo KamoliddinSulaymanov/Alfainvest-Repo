@@ -47,35 +47,92 @@
   --section-alt:   #162031;
 }
 
-/* ─── Light theme (brandbook White + Navy text + Teal accent) ─── */
+/*
+  ─── Light theme — strict brandbook compliance ───
+  Alfa Invest Guidebook палитра (page 10):
+    #FFFFFF White
+    #13D6D1 Ярко-бирюзовый   → fills (CTA bg), decorative highlights
+    #1D283A Тёмно-бирюзовый  → all text, footer bg, navy dominant surfaces
+    #06B2A5 Бирюзовый        → secondary accent, borders, focus, hover
+    #E6E6E6 Серый            → alt surfaces, dividers
+  NO off-brand slates, grays, or blues. All hierarchy via alpha of navy.
+  Digital медиа допускает alpha/tints тех же брендовых цветов (guidebook p.46).
+*/
 html.light {
-  --bg-primary:    #FFFFFF;
-  --bg-card:       #FFFFFF;
-  --bg-elevated:   #F5F6F8;   /* softened brand gray for surfaces */
-  --bg-header:     rgba(255,255,255,0.95);
-  --bg-footer:     #1D283A;   /* brand navy for inverted footer */
-  --border-color:  rgba(29,40,58,0.10);
-  --text-primary:  #1D283A;
-  --text-secondary:rgba(29,40,58,0.70);
-  --text-muted:    rgba(29,40,58,0.50);
-  --text-heading:  #1D283A;
-  --text-inverted: #FFFFFF;
-  --teal:          #06B2A5;   /* WCAG-safe accent on white */
-  --teal-hover:    #059A8F;
-  --teal-subtle:   rgba(6,178,165,0.08);
-  --teal-glow:     rgba(19,214,209,0.20);
-  --shadow-card:   0 4px 24px rgba(29,40,58,0.08);
-  --scrollbar-track: #E6E6E6;
-  --scrollbar-thumb: rgba(29,40,58,0.25);
-  --scrollbar-hover: rgba(29,40,58,0.45);
-  --badge-bg:      rgba(29,40,58,0.04);
-  --badge-border:  rgba(29,40,58,0.10);
-  --input-bg:      #FFFFFF;
-  --input-border:  rgba(29,40,58,0.15);
-  --input-focus:   rgba(6,178,165,0.35);
-  --hero-gradient: linear-gradient(135deg, #FFFFFF 0%, #F0FBFA 50%, #E6E6E6 100%);
-  --section-alt:   #F5F6F8;
+  /* ── Surfaces (only White + Gray + alpha) ── */
+  --bg-base:        #FFFFFF;        /* page bg */
+  --bg-surface:     #FFFFFF;        /* cards, header, modals */
+  --bg-elevated:    rgba(230,230,230,0.40);  /* alt sections — brand gray softened */
+  --bg-sunken:      #E6E6E6;        /* pressed, code — full brand gray */
+  --bg-tint:        rgba(19,214,209,0.05);   /* brand teal 5% — tinted hero */
+  --bg-footer:      #1D283A;
+  --bg-header:      rgba(255,255,255,0.92);
+
+  /* ── Text hierarchy (all navy, alpha-stepped) ── */
+  --text-primary:   #1D283A;                   /* AAA 15.8:1 */
+  --text-secondary: rgba(29,40,58,0.72);       /* AAA ~10:1  */
+  --text-tertiary:  rgba(29,40,58,0.52);       /* AA  ~7:1   */
+  --text-disabled:  rgba(29,40,58,0.28);
+  --text-inverted:  #FFFFFF;
+  --text-link:      #06B2A5;                   /* brand teal */
+  --text-link-hover:#1D283A;                   /* navy on hover */
+
+  /* ── Accent (brand teal duo only) ── */
+  --accent:         #13D6D1;                   /* fills only, always with navy text */
+  --accent-hover:   #06B2A5;
+  --accent-deep:    #06B2A5;                   /* brand teal variant */
+  --accent-tint-8:  rgba(19,214,209,0.08);
+  --accent-tint-16: rgba(19,214,209,0.16);
+  --accent-border:  rgba(6,178,165,0.30);
+  --accent-glow:    rgba(19,214,209,0.25);
+
+  /* ── Borders & dividers (navy alpha / brand gray) ── */
+  --border-subtle:  rgba(29,40,58,0.06);
+  --border-default: rgba(29,40,58,0.10);
+  --border-strong:  rgba(29,40,58,0.18);
+  --divider:        #E6E6E6;
+
+  /* ── Inputs ── */
+  --input-placeholder: rgba(29,40,58,0.40);
+
+  /* ── Shadows (navy-tinted, flat-first) ── */
+  --shadow-xs:      0 1px 2px rgba(29,40,58,0.04);
+  --shadow-sm:      0 2px 6px rgba(29,40,58,0.06);
+  --shadow-md:      0 4px 16px rgba(29,40,58,0.08);
+  --shadow-lg:      0 12px 32px rgba(29,40,58,0.10);
+
+  /* ── Legacy var bridge (existing code references) ── */
+  --bg-primary:     var(--bg-base);
+  --bg-card:        var(--bg-surface);
+  --border-color:   var(--border-default);
+  --text-muted:     var(--text-tertiary);
+  --text-heading:   var(--text-primary);
+  --teal:           #06B2A5;
+  --teal-hover:     #13D6D1;
+  --teal-subtle:    var(--accent-tint-8);
+  --teal-glow:      var(--accent-glow);
+  --shadow-card:    var(--shadow-md);
+  --scrollbar-track:#E6E6E6;
+  --scrollbar-thumb:rgba(29,40,58,0.18);
+  --scrollbar-hover:rgba(29,40,58,0.35);
+  --badge-bg:       var(--accent-tint-8);
+  --badge-border:   var(--accent-border);
+  --input-bg:       var(--bg-surface);
+  --input-border:   rgba(29,40,58,0.12);
+  --input-focus:    rgba(6,178,165,0.30);
+  --hero-gradient:  linear-gradient(180deg, rgba(19,214,209,0.05) 0%, #FFFFFF 100%);
+  --section-alt:    var(--bg-elevated);
 }
+
+/*
+  ─── Brand-teal text remap for light theme ───
+  Pages hardcode `text-[#13D6D1]`. Bright teal on white fails contrast but
+  brand #06B2A5 is the allowed darker variant — remap to it.
+  Background / border fills keep #13D6D1 (brandbook dominant combo).
+*/
+html.light .text-\[\#13D6D1\] { color: #06B2A5; }
+html.light .hover\:text-\[\#13D6D1\]:hover { color: #06B2A5; }
+html.light .border-\[\#13D6D1\] { border-color: rgba(6,178,165,0.35); }
 
 *, *::before, *::after { box-sizing: border-box; }
 
@@ -143,13 +200,14 @@ body {
 .prose-cms-dark code { background: rgba(255,255,255,0.06); padding: 0.1em 0.4em; border-radius: 4px; }
 
 .prose-cms-light {
-  color: rgba(29,40,58,0.70);
+  color: rgba(29,40,58,0.72);
 }
 .prose-cms-light h1, .prose-cms-light h2, .prose-cms-light h3 { color: #1D283A; }
-.prose-cms-light a { color: #06B2A5; }
+.prose-cms-light a { color: #06B2A5; text-decoration: underline; text-underline-offset: 2px; }
+.prose-cms-light a:hover { color: #1D283A; }
 .prose-cms-light strong { color: #1D283A; }
-.prose-cms-light blockquote { border-left: 3px solid #06B2A5; padding-left: 1em; color: rgba(29,40,58,0.55); }
-.prose-cms-light code { background: rgba(29,40,58,0.05); padding: 0.1em 0.4em; border-radius: 4px; }
+.prose-cms-light blockquote { border-left: 3px solid #06B2A5; padding-left: 1em; color: rgba(29,40,58,0.65); }
+.prose-cms-light code { background: #E6E6E6; color: #1D283A; padding: 0.1em 0.4em; border-radius: 4px; font-size: 0.92em; }
 
 /* ─── Transitions ─── */
 .theme-transition {

@@ -29,6 +29,8 @@ logs/
 
 # ─── Test / debug tools ──────────────────────────────────────────────────────
 .playwright-mcp/
+__manus__/
+**/manusTypes.ts
 
 # ─── Large binary / media assets not needed in repo ─────────────────────────
 *.pdf
