@@ -126,13 +126,33 @@ html.light {
 
 /*
   ─── Brand-teal text remap for light theme ───
-  Pages hardcode `text-[#13D6D1]`. Bright teal on white fails contrast but
-  brand #06B2A5 is the allowed darker variant — remap to it.
-  Background / border fills keep #13D6D1 (brandbook dominant combo).
+  Pages hardcode `text-[#13D6D1]`. Bright teal on white fails contrast —
+  remap to brand darker variant #06B2A5 for text-safe readability.
 */
 html.light .text-\[\#13D6D1\] { color: #06B2A5; }
 html.light .hover\:text-\[\#13D6D1\]:hover { color: #06B2A5; }
 html.light .border-\[\#13D6D1\] { border-color: rgba(6,178,165,0.35); }
+
+/*
+  ─── Primary CTA visual flip (brandbook-compliant) ───
+  Original style: bg #13D6D1 + text #1D283A (AAA but visually heavy/dark).
+  Light mode: swap to navy-bg + white-text for modern, lighter appearance.
+  Hover: flip to bright-teal-bg + navy-text (brand duet animation).
+*/
+html.light .bg-\[\#13D6D1\].text-\[\#1D283A\] {
+  background-color: #1D283A;
+  color: #FFFFFF;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+html.light .bg-\[\#13D6D1\].text-\[\#1D283A\]:hover {
+  background-color: #13D6D1 !important;
+  color: #1D283A !important;
+}
+/* Neutralize legacy hover classes that would break the flip */
+html.light .bg-\[\#13D6D1\].text-\[\#1D283A\].hover\:bg-\[\#0fc4bf\]:hover,
+html.light .bg-\[\#13D6D1\].text-\[\#1D283A\].hover\:bg-\[\#11C5C0\]:hover {
+  background-color: #13D6D1 !important;
+}
 
 *, *::before, *::after { box-sizing: border-box; }
 
